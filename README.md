@@ -1,14 +1,14 @@
 ## Cmcc-l2tpdClient
 
-用于在 linux 连接校园网有线宽带。
+用于在 linux 连接校园网有线宽带
 
-#### 使用范围
+### 使用范围
 
-用 l2tp 方式拨号的有线网。
+用 l2tp 方式拨号的有线网
 
-测试通过：Ubuntu 20.04 连接移动有线宽带，模拟 Windows 上的 Auth_supplicant 。
+测试通过：Ubuntu 20.04 连接移动有线宽带，模拟 Windows 上的 Auth_supplicant 
 
-#### 安装
+### 安装
 
 ```shell
 bash setup.sh
@@ -21,7 +21,7 @@ chmod +x setup.sh
 ./setup.sh
 ```
 
-#### 配置
+### 配置
 
 文件不存在，需要自己创建
 
@@ -51,11 +51,13 @@ usepeerdns
 debug
 ```
 
-#### 拨号
+### 拨号
 
 ```shell
 sudo auth_supplicant
 ```
 
-输出 `Connection established` 则脚本顺利运行，能不能联网看运气。
+确保 /usr/local/bin/ 在环境变量里
+
+输出 `Connection established` 则脚本顺利运行，能不能联网看运气
 
