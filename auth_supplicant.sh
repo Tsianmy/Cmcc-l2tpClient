@@ -52,7 +52,7 @@ if [[ $gateway =~ $reg ]];then
 	last=${BASH_REMATCH[2]}
 else
 	sudo killall xl2tpd
-    exit 222
+	exit 222
 fi
 default=`ip route show default | grep $pre`
 reg='.* ([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+).*'
