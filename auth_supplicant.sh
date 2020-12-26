@@ -14,17 +14,12 @@ if [[ ! $lns =~ $reg ]];then
 fi
 lns=${BASH_REMATCH[1]}
 echo 'find lns '$lns | tee -a $log
-# 匹配 remote name
-name=`grep 'name' /etc/xl2tpd/xl2tpd.conf`
-reg='name\s*=\s*(.*)\s*'
-if [[ ! $name =~ $reg ]];then
-	exit 221
-fi
-name=${BASH_REMATCH[1]}
-echo 'find name '$name | tee -a $log
 
+# 启动 xl2tpd
+echo "start xl2tpd"
 xl2tpd -c /etc/xl2tpd/xl2tpd.conf
-echo "c $name" > /var/run/xl2tpd/l2tp-control
+mkdir -p /var/run/xl2tpd
+echo "c myvpn" > /var/run/xl2tpd/l2tp-control
 
 #在发送完连接命令之后, 就每隔2s检查下有没有ppp0的接口在ifconfig中出现. 次数超过10次就exit.
 count=0
@@ -37,7 +32,7 @@ while [ $count -lt 10 ]; do
 	let count=count+1
 	sleep 2s
 done
-if [[ $count == 10 ]];then
+if [[ $count -eq 10 ]];then
 	echo 'time out!' | tee -a $log
 	sudo killall xl2tpd
 	exit 0

@@ -6,7 +6,12 @@
 
 用 l2tp 方式拨号的有线网
 
-测试通过：Ubuntu 20.04 连接移动有线宽带，模拟 Windows 上的 Auth_supplicant 
+测试通过：Ubuntu 20.04 连接移动有线宽带，模拟 Windows 上的 Auth_supplicant
+
+### 前提
+
+1. 需要认证接入内网的先认证
+2. 能 ping 通 lns
 
 ### 安装
 
@@ -23,32 +28,30 @@ chmod +x setup.sh
 
 ### 配置
 
-文件不存在，需要自己创建
-
-###### /etc/xl2tpd/xl2tpd.conf
+**/etc/xl2tpd/xl2tpd.conf**
 
 ```
-[lac testvpn]
-name = testvpn
-lns = 192.168.113.1    #l2tp服务器ip
-pppoptfile = /etc/xl2tpd/testvpn.l2tpd
+...
+
+[lac myvpn]
+name = username		#拨号时的用户名
+lns = 192.168.113.1		#l2tp服务器ip
+require pap = no
+require chap = yes
+require authentication = yes
+pppoptfile = /etc/ppp/options.xl2tpd
 ppp debug = yes
+
+...
 ```
 
-###### /etc/xl2tpd/testvpn.l2tpd (和xl2tpd.conf里pppoptfile处的位置一致)
+**/etc/ppp/chap-secrets**
 
 ```
-remotename testvpn
-user "username" #拨号用户名
-password "password" #拨号密码
-unit 0
-nodeflate
-noauth
-persist
-noaccomp
-maxfail 5
-usepeerdns 
-debug
+# Secrets for authentication using CHAP
+# client    server  secret          IP addresses
+# 用户名 星号 密码 星号
+username * password *
 ```
 
 ### 拨号
