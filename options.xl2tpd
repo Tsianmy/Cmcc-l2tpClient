@@ -1,0 +1,6 @@
+unit 0
+noauth
+persist
+defaultroute
+usepeerdns
+debug
