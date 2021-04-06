@@ -2,6 +2,8 @@
 
 用于在 linux 连接校园网有线宽带
 
+参考：https://www.jianshu.com/p/85cd5bd3c7a2?tdsourcetag=s_pcqq_aiomsg
+
 ### 使用范围
 
 用 l2tp 方式拨号的有线网
